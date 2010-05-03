@@ -34,10 +34,13 @@ class VariableNodeSpec extends FlatSpec with ShouldMatchers {
     v link(f1, f2, f3)
     v update
 
-    v getMessageFor f1 should equal (1.0)
-    v getMessageFor f2 should equal (1.0)
-    v getMessageFor f3 should equal (1.0)
+    v getMessageFor(f1, 0) should equal (1.0)
+    v getMessageFor(f2, 0) should equal (1.0)
+    v getMessageFor(f3, 0) should equal (1.0)
 
+    v getMessageFor(f1, 1) should equal (1.0)
+    v getMessageFor(f2, 1) should equal (1.0)
+    v getMessageFor(f3, 1) should equal (1.0)    
   }
 
 }
