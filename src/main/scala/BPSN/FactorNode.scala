@@ -57,8 +57,9 @@ class FactorNode {
 
     parms.foreach(p => {
 
-      res += apply(label, p)
-
+      val functionPart = apply(label, p)
+      val messagePart = 1.0
+      res += functionPart * messagePart
     })
 
     messages((node, label)) = res    
@@ -70,7 +71,7 @@ class FactorNode {
 
     nodes.foreach(n => {
 
-      
+//      permutation +=
 
     })
     
