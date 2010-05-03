@@ -26,11 +26,11 @@ class FactorNodeSpec extends FlatSpec with ShouldMatchers {
     val f = new FactorNode
     var res = 0.0
     
-    res = f(0, 1, 1, 1, 1, 0.8, 0.8, 0.8, 0.8)
+    res = f(0, List((1, 0.8), (1, 0.8), (1, 0.8), (1, 0.8)))
     areEqual(0.2 * 0.2 * 0.2 * 0.2, res)
 
-    res = f(0, 1, 0, 1, 0, 0.8, 0.8, 0.8, 0.8)
-    areEqual(0.2 * 0.8 * 0.2 * 0.8, res)    
+    res = f(0, List((1, 0.2), (1, 0.8), (1, 0.2), (1, 0.8)))
+    areEqual(0.2 * 0.8 * 0.2 * 0.8, res)
 
   }
 

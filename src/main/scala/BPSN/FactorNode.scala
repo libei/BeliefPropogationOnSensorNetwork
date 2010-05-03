@@ -11,33 +11,72 @@ class FactorNode {
 
   def link(variableNodes: VariableNode*) {
     variableNodes.foreach(v => {
-      neighbors += v
+      neighbors += v 
       messages += (v,0) -> 1.0
       messages += (v,1) -> 1.0
     })
   }
 
-  def apply(subject: Int,
-            neighbor1: Int, neighbor2: Int,
-            neighbor3: Int, neighbor4: Int,
-            correlation1: Double, correlation2: Double,
-            correlation3: Double,  correlation4: Double): Double = {
+  def apply(subject: Int, neighborsWithFactors: List[Tuple2[Int, Double]]
+          ): Double = {
 
-    var (term1, term2, term3, term4) = (0.0, 0.0, 0.0, 0.0)
-    term1 = if(subject == neighbor1) correlation1 else 1 - correlation1
-    term2 = if(subject == neighbor2) correlation2 else 1 - correlation2
-    term3 = if(subject == neighbor3) correlation3 else 1 - correlation3
-    term4 = if(subject == neighbor4) correlation4 else 1 - correlation4
+    var res = 1.0
 
-    return term1 * term2 * term3 * term4
+    neighborsWithFactors.foreach(n => {
 
+      val factor =
+        if(n._1 == subject) {
+          n._2
+        } else {
+          1 - n._2
+        }
+      res *= factor
+    })
+    res
   }
 
   def update() {
 
+    neighbors.foreach(v => {
 
+      update(v, 0)
+      update(v, 1)
+
+    })
 
   }
+
+  private def update(node: VariableNode, label: Int) {
+
+
+    var res = 0.0
+
+    val neightborsExceptTheOneToUpdate: List[VariableNode] = neighbors.toList.filter(n => n != node)
+
+    val parms: List[List[Tuple2[Int, Double]]] = generatePermutation(neightborsExceptTheOneToUpdate)
+
+    parms.foreach(p => {
+
+      res += apply(label, p)
+
+    })
+
+    messages((node, label)) = res    
+
+  }
+
+  private def generatePermutation(nodes: List[VariableNode]): List[List[Tuple2[Int, Double]]] = {
+    val permutation = new ListBuffer[List[Tuple2[Int, Double]]]
+
+    nodes.foreach(n => {
+
+      
+
+    })
+    
+    return permutation.toList
+  }
+
 
   def getMessageFor(variableNode: VariableNode, value: Int): Double = messages((variableNode, value))
 

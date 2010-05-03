@@ -24,15 +24,16 @@ class VariableNode {
   }
 
   def update() {
+    updateForLabel(0)
+    updateForLabel(1)
+  }
 
-    var multiplication_0: Double = 1.0
-    var multiplication_1: Double = 1.0
+  private def updateForLabel(value: Int) {
+    
+    var multiplication: Double = 1.0
 
-    getFactorNodes.foreach(f => multiplication_0 *= f getMessageFor(this, 0))
-    getFactorNodes.foreach(f => factorNodeMessages((f, 0)) = multiplication_0 / (f getMessageFor(this, 0)))
-
-    getFactorNodes.foreach(f => multiplication_1 *= f getMessageFor(this, 1))
-    getFactorNodes.foreach(f => factorNodeMessages((f, 1)) = multiplication_1 / (f getMessageFor(this, 1)))
+    getFactorNodes.foreach(f => multiplication *= f getMessageFor(this, value))
+    getFactorNodes.foreach(f => factorNodeMessages((f, value)) = multiplication / (f getMessageFor(this, value)))
   }
   
 }
