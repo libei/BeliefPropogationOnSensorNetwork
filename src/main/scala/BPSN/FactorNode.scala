@@ -37,6 +37,6 @@ class FactorNode {
 
   }
 
-  def getMessageFor(variableNode: VariableNode): Double = 0.0
+  def getMessageFor(variableNode: VariableNode): Double = messages(variableNode)
 
 }

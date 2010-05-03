@@ -22,7 +22,7 @@ class VariableNode {
 
   def update() {
 
-    var multiplication: Double = 0.0
+    var multiplication: Double = 1.0
 
     getFactorNodes.foreach(f => multiplication *= f getMessageFor this );
     getFactorNodes.foreach(f => factorNodeMessages(f) = multiplication / (f getMessageFor this))

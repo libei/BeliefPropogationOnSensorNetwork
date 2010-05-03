@@ -22,10 +22,15 @@ class VariableNodeSpec extends FlatSpec with ShouldMatchers {
 
   it should "update messages for factor nodes" in {
 
-    val f1 = new FactorNode
-    val f2 = new FactorNode
-    val f3 = new FactorNode
     val v = new VariableNode
+
+    val f1 = new FactorNode
+    f1 link v
+    val f2 = new FactorNode
+    f2 link v
+    val f3 = new FactorNode
+    f3 link v
+
     v link(f1, f2, f3)
     v update
 
