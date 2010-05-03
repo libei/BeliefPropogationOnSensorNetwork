@@ -6,14 +6,12 @@ class FactorNode {
 
   private val messages = new HashMap[VariableNode, Double]
 
-  private val variableNodes = new ListBuffer[VariableNode]
-
   def getVariableNodes = messages.keys.toList
 
   def link(variableNodes: VariableNode*) {
 
     variableNodes.foreach(v => {
-      messages += v -> 0.0
+      messages += v -> 1.0
     })
   }
 
@@ -38,5 +36,7 @@ class FactorNode {
 
 
   }
+
+  def getMessageFor(variableNode: VariableNode): Double = 0.0
 
 }

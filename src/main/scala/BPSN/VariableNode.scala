@@ -1,24 +1,20 @@
 package BPSN
 
-import collection.mutable.ListBuffer
-
-class Message
+import collection.mutable.{HashMap}
 
 class VariableNode {
 
-  private val factorNodes = new ListBuffer[FactorNode]
-  
+  private val factorNodeMessages = new HashMap[FactorNode, Double]
 
+  def getFactorNodes = factorNodeMessages.keys.toList
 
-  def getFactorNodes = factorNodes.toList
-
-  def link(factorNodes: FactorNode*) {
-    this.factorNodes.appendAll(factorNodes)
+  def link(factorNode: FactorNode*) {
+    factorNode.foreach(v => {
+      factorNodeMessages += v -> 1.0
+    })
   }
 
-  def getMessageFor(j: VariableNode): Message = {
-    null
-  }
+  def getMessageFor(factorNode: FactorNode): Double = factorNodeMessages(factorNode)
 
   def getBelief(): Float = {
     0.0f
@@ -26,12 +22,10 @@ class VariableNode {
 
   def update() {
 
-    factorNodes.foreach(f => {
+    var multiplication: Double = 0.0
 
-//      f getMessageFor this
-
-    })
-
+    getFactorNodes.foreach(f => multiplication *= f getMessageFor this );
+    getFactorNodes.foreach(f => factorNodeMessages(f) = multiplication / (f getMessageFor this))
   }
   
 }
