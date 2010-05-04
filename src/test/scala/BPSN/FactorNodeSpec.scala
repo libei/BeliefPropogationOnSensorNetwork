@@ -1,13 +1,6 @@
 package BPSN
 
-import org.scalatest.matchers.ShouldMatchers
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.FlatSpec
-
-
-@RunWith(classOf[JUnitRunner])
-class FactorNodeSpec extends FlatSpec with ShouldMatchers {
+class FactorNodeSpec extends SpecBase {
 
   it should "connect to multiple variable nodes" in {
 
@@ -51,13 +44,5 @@ class FactorNodeSpec extends FlatSpec with ShouldMatchers {
     f getMessageFor (v2, 1) should equal(0.5)
 
   }
-
-  def areEqual(expected: Double, actual: Double) {
-    if(expected - actual < 0.00001)
-      return
-
-    assert(false)
-  }
-
 
 }

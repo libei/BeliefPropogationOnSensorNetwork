@@ -1,12 +1,6 @@
 package BPSN
 
-import org.junit.runner.RunWith
-import org.scalatest.matchers.ShouldMatchers
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
-
-@RunWith(classOf[JUnitRunner])
-class PermutationGeneratorSpec extends FlatSpec with ShouldMatchers {
+class PermutationGeneratorSpec extends SpecBase {
 
   it should "generate permutation" in {
 

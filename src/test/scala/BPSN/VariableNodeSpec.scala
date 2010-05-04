@@ -1,12 +1,6 @@
 package BPSN
 
-import org.junit.runner.RunWith
-import org.scalatest.matchers.ShouldMatchers
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
-
-@RunWith(classOf[JUnitRunner])
-class VariableNodeSpec extends FlatSpec with ShouldMatchers {
+class VariableNodeSpec extends SpecBase {
 
   it should "connect to multiple factor nodes" in {
 
