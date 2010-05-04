@@ -48,12 +48,13 @@ class FactorNode {
 
   private def update(node: VariableNode, label: Int) {
 
+    val generator = new PermutationGenerator
 
     var res = 0.0
 
     val neightborsExceptTheOneToUpdate: List[VariableNode] = neighbors.toList.filter(n => n != node)
 
-    val parms: List[List[Tuple2[Int, Double]]] = generatePermutation(neightborsExceptTheOneToUpdate)
+    val parms: List[List[Tuple2[Int, Double]]] = generator.generatePermutation(neightborsExceptTheOneToUpdate.length, Set(1, 2))
 
     parms.foreach(p => {
 
@@ -65,19 +66,6 @@ class FactorNode {
     messages((node, label)) = res    
 
   }
-
-  private def generatePermutation(nodes: List[VariableNode]): List[List[Tuple2[Int, Double]]] = {
-    val permutation = new ListBuffer[List[Tuple2[Int, Double]]]
-
-    nodes.foreach(n => {
-
-//      permutation +=
-
-    })
-    
-    return permutation.toList
-  }
-
 
   def getMessageFor(variableNode: VariableNode, value: Int): Double = messages((variableNode, value))
 
