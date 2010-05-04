@@ -59,7 +59,14 @@ class FactorNode {
     parms.foreach(p => {
 
       val functionPart = apply(label, p)
-      val messagePart = 1.0
+      var messagePart = 1.0
+
+      for(val i <- 0 until neightborsExceptTheOneToUpdate.length) {
+
+        neightborsExceptTheOneToUpdate(i).getMessageFor(this, p(i)._1)
+        messagePart *= neightborsExceptTheOneToUpdate(i).getMessageFor(this, p(i)._1)
+
+      }
       res += functionPart * messagePart
     })
 
