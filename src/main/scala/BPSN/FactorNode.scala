@@ -38,9 +38,22 @@ class FactorNode {
   def update() {
 
     neighbors.foreach(v => {
-
       update(v, 0)
       update(v, 1)
+    })
+
+    normalize
+
+  }
+
+  private def normalize() {
+
+    var sum = 0.0
+    messages.values.foreach(e => sum += e)
+
+    messages.keys.foreach(k => {
+
+      messages(k) = messages(k) / sum
 
     })
 
@@ -54,7 +67,7 @@ class FactorNode {
 
     val neightborsExceptTheOneToUpdate: List[VariableNode] = neighbors.toList.filter(n => n != node)
 
-    val parms: List[List[Tuple2[Int, Double]]] = generator.generatePermutation(neightborsExceptTheOneToUpdate.length, Set(1, 2))
+    val parms: List[List[Tuple2[Int, Double]]] = generator.generatePermutation(neightborsExceptTheOneToUpdate.length, Set(0, 1))
 
     parms.foreach(p => {
 
@@ -62,10 +75,7 @@ class FactorNode {
       var messagePart = 1.0
 
       for(val i <- 0 until neightborsExceptTheOneToUpdate.length) {
-
-        neightborsExceptTheOneToUpdate(i).getMessageFor(this, p(i)._1)
         messagePart *= neightborsExceptTheOneToUpdate(i).getMessageFor(this, p(i)._1)
-
       }
       res += functionPart * messagePart
     })

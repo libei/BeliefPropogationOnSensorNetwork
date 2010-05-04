@@ -15,7 +15,7 @@ class FactorNodeSpec extends FlatSpec with ShouldMatchers {
     val v2 = new VariableNode
     val v3 = new VariableNode
     val f = new FactorNode
-    f link(v1, v2, v3)
+    f link(v1, v2, v3)                          
 
     f.getVariableNodes.length should equal(3)
     
@@ -36,7 +36,19 @@ class FactorNodeSpec extends FlatSpec with ShouldMatchers {
 
   it should "udpate the message for other variable nodes" in {
 
-    
+    val f = new FactorNode
+    val v1 = new VariableNode
+    val v2 = new VariableNode
+    v1 link f
+    v2 link f
+    f link(v1, v2)
+
+    f update
+
+    f getMessageFor (v1, 0) should equal(0.25)
+    f getMessageFor (v1, 1) should equal(0.25)
+    f getMessageFor (v2, 0) should equal(0.25)
+    f getMessageFor (v2, 1) should equal(0.25)
 
   }
 
