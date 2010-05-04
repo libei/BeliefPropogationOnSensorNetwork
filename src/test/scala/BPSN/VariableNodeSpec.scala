@@ -28,13 +28,13 @@ class VariableNodeSpec extends SpecBase {
     v link(f1, f2, f3)
     v update
 
-    v getMessageFor(f1, 0) should equal (1.0)
-    v getMessageFor(f2, 0) should equal (1.0)
-    v getMessageFor(f3, 0) should equal (1.0)
+    areEqual(v getMessageFor(f1, 0),0.333333333)
+    areEqual(v getMessageFor(f2, 0),0.333333333)
+    areEqual(v getMessageFor(f3, 0),0.333333333)
 
-    v getMessageFor(f1, 1) should equal (1.0)
-    v getMessageFor(f2, 1) should equal (1.0)
-    v getMessageFor(f3, 1) should equal (1.0)    
+    areEqual(v getMessageFor(f1, 1),0.333333333)
+    areEqual(v getMessageFor(f2, 1),0.333333333)
+    areEqual(v getMessageFor(f3, 1),0.333333333)
   }
 
 }
