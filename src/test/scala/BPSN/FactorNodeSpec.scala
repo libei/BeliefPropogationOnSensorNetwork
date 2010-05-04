@@ -45,10 +45,10 @@ class FactorNodeSpec extends FlatSpec with ShouldMatchers {
 
     f update
 
-    f getMessageFor (v1, 0) should equal(0.25)
-    f getMessageFor (v1, 1) should equal(0.25)
-    f getMessageFor (v2, 0) should equal(0.25)
-    f getMessageFor (v2, 1) should equal(0.25)
+    f getMessageFor (v1, 0) should equal(0.5)
+    f getMessageFor (v1, 1) should equal(0.5)
+    f getMessageFor (v2, 0) should equal(0.5)
+    f getMessageFor (v2, 1) should equal(0.5)
 
   }
 

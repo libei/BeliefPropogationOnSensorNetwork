@@ -48,15 +48,14 @@ class FactorNode {
 
   private def normalize() {
 
-    var sum = 0.0
-    messages.values.foreach(e => sum += e)
+    val sumForLabel = new HashMap[Int, Double]
+    sumForLabel ++= Set(0 -> 0.0, 1 -> 0.0) 
 
-    messages.keys.foreach(k => {
+    for((key, value) <- messages) {
+      sumForLabel(key._2) += value
+    }
 
-      messages(k) = messages(k) / sum
-
-    })
-
+    messages.keys.foreach(k => messages(k) = messages(k) / sumForLabel(k._2))
   }
 
   private def update(node: VariableNode, label: Int) {
