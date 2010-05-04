@@ -19,8 +19,14 @@ class VariableNode {
 
   def getMessageFor(factorNode: FactorNode, value: Int): Double = messages((factorNode, value))
 
-  def getBelief(): Float = {
-    0.0f
+  
+  def getBelief(label: Int): Double = _getBelief(label) / (_getBelief(0) + _getBelief(1))
+
+
+  private def _getBelief(label: Int): Double = {
+    var belief = 1.0
+    neighbors.foreach( n=> belief *= n.getMessageFor(this, label))
+    belief
   }
 
   def update() {

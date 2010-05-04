@@ -37,4 +37,19 @@ class VariableNodeSpec extends SpecBase {
     areEqual(v getMessageFor(f3, 1),0.333333333)
   }
 
+  it should "get belief for every label" in {
+
+    val v = new VariableNode
+
+    val f1 = new FactorNode
+    f1 link v
+    val f2 = new FactorNode
+    f2 link v
+
+    v link(f1, f2)
+
+    v getBelief(0) should equal(0.5)
+    v getBelief(1) should equal(0.5)
+
+  }
 }
