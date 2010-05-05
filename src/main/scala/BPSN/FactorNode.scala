@@ -2,7 +2,7 @@ package BPSN
 
 import collection.mutable.{HashMap, ListBuffer}
 
-class FactorNode {
+class FactorNode extends FactorMessageSource {
 
   private val messages = new HashMap[Tuple2[VariableNode, Int], Double]
   private val neighbors = new ListBuffer[VariableNode]

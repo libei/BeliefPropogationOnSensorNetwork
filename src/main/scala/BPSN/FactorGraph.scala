@@ -2,14 +2,16 @@ package BPSN
 
 import collection.mutable.{HashSet}
 
-class FactorGraph(factorNodes: HashSet[FactorNode], variableNode: HashSet[VariableNode], observableFactorNodes: HashSet[ObservableFactorNode]) {
+class FactorGraph(factorNodes: HashSet[FactorNode], variableNodes: HashSet[VariableNode], observableFactorNodes: HashSet[ObservableFactorNode]) {
+
+  def getVariableNodes: HashSet[VariableNode] = variableNodes
 
   def infer() {
     observableFactorNodes.foreach(n => n.update)
 
     for(val i <- 1 until 100) {
       factorNodes.foreach(n => n.update)
-      variableNode.foreach(n => n.update)
+      variableNodes.foreach(n => n.update)
     }
   }
 }

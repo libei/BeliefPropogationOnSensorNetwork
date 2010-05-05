@@ -2,7 +2,7 @@ package BPSN
 
 import collection.mutable.{HashMap}
 
-class ObservableFactorNode(observedValue: Int, correctRate: Double, variableNode: VariableNode) {
+class ObservableFactorNode(observedValue: Int, correctRate: Double, variableNode: VariableNode) extends FactorMessageSource  {
   
   private val messages = new HashMap[Int, Double]
 

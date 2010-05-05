@@ -4,12 +4,12 @@ import collection.mutable.{ListBuffer, HashMap}
 
 class VariableNode {
 
-  private val messages = new HashMap[Tuple2[FactorNode, Int], Double]
-  private val neighbors = new ListBuffer[FactorNode]
+  private val messages = new HashMap[Tuple2[FactorMessageSource, Int], Double]
+  private val neighbors = new ListBuffer[FactorMessageSource]
 
   def getFactorNodes = neighbors.toList
 
-  def link(factorNode: FactorNode*) {
+  def link(factorNode: FactorMessageSource*) {
     factorNode.foreach(v => {
       neighbors += v
       messages += (v, 0) -> 1.0
@@ -17,7 +17,7 @@ class VariableNode {
     })
   }
 
-  def getMessageFor(factorNode: FactorNode, value: Int): Double = messages((factorNode, value))
+  def getMessageFor(factorNode: FactorMessageSource, value: Int): Double = messages((factorNode, value))
 
   
   def getBelief(label: Int): Double = _getBelief(label) / (_getBelief(0) + _getBelief(1))
