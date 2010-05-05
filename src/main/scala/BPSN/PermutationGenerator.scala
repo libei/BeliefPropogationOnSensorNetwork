@@ -23,7 +23,6 @@ class PermutationGenerator {
     return permutation.toList
   }
 
-
   private def generate(length: Int, labels: Set[Int], currentPath: ListBuffer[Int]) {
 
     if(length == 0) {
