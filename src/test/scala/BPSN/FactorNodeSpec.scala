@@ -20,10 +20,10 @@ class FactorNodeSpec extends SpecBase {
     var res = 0.0
     
     res = f(0, List(2, 2, 2, 2))
-    areEqual(1 / (16 + 1), res)
+    areEqual(1 / (64 + 1), res)
 
-    res = f(0, List(3, 3, 3, 3))
-    areEqual(1 / (36 + 1), res)
+    res = f(0, List(0, 0, 0, 3))
+    areEqual(1 / (16 + 1), res)
 
   }
 

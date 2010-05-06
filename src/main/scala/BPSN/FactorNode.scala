@@ -1,6 +1,7 @@
 package BPSN
 
 import collection.mutable.{HashMap, ListBuffer}
+import java.text.MessageFormat
 
 class FactorNode extends FactorMessageSource {
 
@@ -19,11 +20,17 @@ class FactorNode extends FactorMessageSource {
 
   def apply(subject: Int, neighbors: List[Int]): Double = {
 
+
+
     var res = 1.0 // so that there will never be a DividbyZero exception when 1 / res
 
     neighbors.foreach(n => {
-      res += Math.pow(Math.abs(subject - n), 2)
+      res += Math.abs(subject - n)
     })
+
+    res = Math.pow(res, 2)
+    
+    System.out.println(MessageFormat.format("apply({0}, {1}) == {2}", subject.toString, neighbors.toString, (1 / res).toString))
     1 / res
   }
 
@@ -62,10 +69,12 @@ class FactorNode extends FactorMessageSource {
       //p: List[Int] 
 
       val functionPart = apply(label, p)
+
       var messagePart = 1.0
 
       for(val i <- 0 until neightborsExceptTheOneToUpdate.length) {
-        messagePart *= neightborsExceptTheOneToUpdate(i).getMessageFor(this, p(i))
+        val term: Double = neightborsExceptTheOneToUpdate(i).getMessageFor(this, p(i))
+        messagePart *= term
       }
       res += functionPart * messagePart
     })
