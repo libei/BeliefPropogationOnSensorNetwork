@@ -1,6 +1,7 @@
 package BPSN
 
 import collection.mutable.{ListBuffer, HashMap}
+import java.text.MessageFormat
 
 class VariableNode {
 
@@ -37,23 +38,24 @@ class VariableNode {
   }
 
   private def normalize() {
-
-    val sumForLabel = new HashMap[Int, Double]
-    sumForLabel ++= Set(0 -> 0.0, 1 -> 0.0)
-
-    for((key, value) <- messages) {
-      sumForLabel(key._2) += value
-    }
-
-    messages.keys.foreach(k => messages(k) = messages(k) / sumForLabel(k._2))
+    getFactorNodes.foreach(f => {
+      val sum = messages((f, 0)) + messages((f, 1))
+      messages((f, 0)) = messages((f, 0)) / sum
+      messages((f, 1)) = messages((f, 1)) / sum
+    })
   }
 
-  private def updateForLabel(value: Int) {
+  private def updateForLabel(label: Int) {
     
     var multiplication: Double = 1.0
 
-    getFactorNodes.foreach(f => multiplication *= f getMessageFor(this, value))
-    getFactorNodes.foreach(f => messages((f, value)) = multiplication / (f getMessageFor(this, value)))
+    getFactorNodes.foreach(f => multiplication *= f getMessageFor(this, label))
+    getFactorNodes.foreach(f => {
+      messages((f, label)) = multiplication / (f getMessageFor(this, label))
+      System.out.println(MessageFormat.format("message for factor node {0} label {1} is {2}", f.toString, label.toString, messages((f, label)).toString))
+    })
+
+
   }
   
 }

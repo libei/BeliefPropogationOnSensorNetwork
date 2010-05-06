@@ -74,6 +74,7 @@ class FactorNode extends FactorMessageSource {
 
       for(val i <- 0 until neightborsExceptTheOneToUpdate.length) {
         val term: Double = neightborsExceptTheOneToUpdate(i).getMessageFor(this, p(i))
+        System.out.println(MessageFormat.format("message from variable {0} for label {1} is {2}", i.toString, p(i).toString, term.toString))
         messagePart *= term
       }
       res += functionPart * messagePart

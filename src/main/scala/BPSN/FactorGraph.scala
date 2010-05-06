@@ -9,7 +9,7 @@ class FactorGraph(factorNodes: HashSet[FactorNode], variableNodes: HashSet[Varia
   def infer() {
     observableFactorNodes.foreach(n => n.update)
 
-    for(val i <- 1 until 100) {
+    for(val i <- 1 until 10) {
       factorNodes.foreach(n => n.update)
       variableNodes.foreach(n => n.update)
     }

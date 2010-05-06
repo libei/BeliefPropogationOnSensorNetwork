@@ -18,23 +18,30 @@ class VariableNodeSpec extends SpecBase {
 
     val v = new VariableNode
 
-    val f1 = new FactorNode
-    f1 link v
-    val f2 = new FactorNode
-    f2 link v
-    val f3 = new FactorNode
-    f3 link v
+    val f1 = new FakeFactorNode
+    val f2 = new FakeFactorNode
+    val f3 = new FakeFactorNode
+
+    f1.putMessageFor(v, 0, 1)
+    f2.putMessageFor(v, 0, 1)
+    f3.putMessageFor(v, 0, 1)
+
+    f1.putMessageFor(v, 1, 3)
+    f2.putMessageFor(v, 1, 3)
+    f3.putMessageFor(v, 1, 3)
 
     v link(f1, f2, f3)
     v update
 
-    areEqual(v getMessageFor(f1, 0),0.333333333)
-    areEqual(v getMessageFor(f2, 0),0.333333333)
-    areEqual(v getMessageFor(f3, 0),0.333333333)
+    v getMessageFor(f1, 0) should equal (0.1)
+    areEqual(v getMessageFor(f1, 0),0.1)
+    areEqual(v getMessageFor(f2, 0),0.1)
+    areEqual(v getMessageFor(f3, 0),0.1)
 
-    areEqual(v getMessageFor(f1, 1),0.333333333)
-    areEqual(v getMessageFor(f2, 1),0.333333333)
-    areEqual(v getMessageFor(f3, 1),0.333333333)
+    v getMessageFor(f1, 1) should equal (0.9)
+    areEqual(v getMessageFor(f1, 1),0.9)
+    areEqual(v getMessageFor(f2, 1),0.9)
+    areEqual(v getMessageFor(f3, 1),0.9)
   }
 
   it should "get belief for every label" in {
