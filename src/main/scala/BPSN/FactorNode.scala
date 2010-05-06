@@ -17,33 +17,22 @@ class FactorNode extends FactorMessageSource {
     })
   }
 
-  def apply(subject: Int, neighborsWithFactors: List[Tuple2[Int, Double]]
-          ): Double = {
+  def apply(subject: Int, neighbors: List[Int]): Double = {
 
-    var res = 1.0
+    var res = 1.0 // so that there will never be a DividbyZero exception when 1 / res
 
-    neighborsWithFactors.foreach(n => {
-
-      val factor =
-        if(n._1 == subject) {
-          n._2
-        } else {
-          1 - n._2
-        }
-      res *= factor
+    neighbors.foreach(n => {
+      res += Math.pow(Math.abs(subject - n), 2)
     })
-    res
+    1 / res
   }
 
   def update() {
-
     neighbors.foreach(v => {
       update(v, 0)
       update(v, 1)
     })
-
     normalize
-
   }
 
   private def normalize() {
@@ -60,21 +49,23 @@ class FactorNode extends FactorMessageSource {
 
   private def update(node: VariableNode, label: Int) {
 
-    val generator = new PermutationGenerator
+    val permutation = new Permutation
 
     var res = 0.0
 
     val neightborsExceptTheOneToUpdate: List[VariableNode] = neighbors.toList.filter(n => n != node)
 
-    val parms: List[List[Tuple2[Int, Double]]] = generator.generatePermutation(neightborsExceptTheOneToUpdate.length, Set(0, 1))
+    val parms: List[List[Int]] = permutation.generate(neightborsExceptTheOneToUpdate.length, Set(0, 1))
 
     parms.foreach(p => {
+
+      //p: List[Int] 
 
       val functionPart = apply(label, p)
       var messagePart = 1.0
 
       for(val i <- 0 until neightborsExceptTheOneToUpdate.length) {
-        messagePart *= neightborsExceptTheOneToUpdate(i).getMessageFor(this, p(i)._1)
+        messagePart *= neightborsExceptTheOneToUpdate(i).getMessageFor(this, p(i))
       }
       res += functionPart * messagePart
     })

@@ -19,11 +19,11 @@ class FactorNodeSpec extends SpecBase {
     val f = new FactorNode
     var res = 0.0
     
-    res = f(0, List((1, 0.8), (1, 0.8), (1, 0.8), (1, 0.8)))
-    areEqual(0.2 * 0.2 * 0.2 * 0.2, res)
+    res = f(0, List(2, 2, 2, 2))
+    areEqual(1 / (16 + 1), res)
 
-    res = f(0, List((1, 0.2), (1, 0.8), (1, 0.2), (1, 0.8)))
-    areEqual(0.2 * 0.8 * 0.2 * 0.8, res)
+    res = f(0, List(3, 3, 3, 3))
+    areEqual(1 / (36 + 1), res)
 
   }
 
