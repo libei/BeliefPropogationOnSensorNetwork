@@ -11,10 +11,16 @@ class FactorGraphSpec extends SpecBase {
       val v2 = new VariableNode
       val v3 = new VariableNode
       val v4 = new VariableNode
-      val o1 = new ObservableFactorNode(0, 0.7, v1)
-      val o2 = new ObservableFactorNode(1, 0.7, v2)
-      val o3 = new ObservableFactorNode(1, 0.7, v3)
-      val o4 = new ObservableFactorNode(1, 0.7, v4)
+      val o1 = new ObservableFactorNode(0, 0.6, v1)
+      val o2 = new ObservableFactorNode(1, 0.6, v2)
+      val o3 = new ObservableFactorNode(0, 0.6, v3)
+      val o4 = new ObservableFactorNode(2, 0.6, v4)
+
+      v1.name = "v1"
+      v2.name = "v2"
+      v3.name = "v3"
+      v4.name = "v4"
+
 
       f1 link (v1, v2, v3, v4)
       v1 link (f1, o1)
@@ -31,9 +37,12 @@ class FactorGraphSpec extends SpecBase {
     factorGraph.infer
 
     factorGraph.getVariableNodes.foreach(v => {
-
+      System.out.println(v.name + " ")
       System.out.println(v.getBelief(0))
       System.out.println(v.getBelief(1))
+      System.out.println(v.getBelief(2))
+      System.out.println(v.getBelief(3))
+      System.out.println(v.getBelief(4))
       System.out.println("-------------------")
 
     })
