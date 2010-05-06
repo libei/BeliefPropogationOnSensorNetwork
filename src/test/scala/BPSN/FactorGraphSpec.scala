@@ -11,10 +11,10 @@ class FactorGraphSpec extends SpecBase {
       val v2 = new VariableNode
       val v3 = new VariableNode
       val v4 = new VariableNode
-      val o1 = new ObservableFactorNode(0, 0.5, v1)
-      val o2 = new ObservableFactorNode(1, 0.5, v2)
-      val o3 = new ObservableFactorNode(1, 0.5, v3)
-      val o4 = new ObservableFactorNode(1, 0.5, v4)
+      val o1 = new ObservableFactorNode(0, 0.7, v1)
+      val o2 = new ObservableFactorNode(1, 0.7, v2)
+      val o3 = new ObservableFactorNode(1, 0.7, v3)
+      val o4 = new ObservableFactorNode(1, 0.7, v4)
 
       f1 link (v1, v2, v3, v4)
       v1 link (f1, o1)

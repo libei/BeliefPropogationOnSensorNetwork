@@ -43,15 +43,11 @@ class FactorNode extends FactorMessageSource {
   }
 
   private def normalize() {
-
-    val sumForLabel = new HashMap[Int, Double]
-    sumForLabel ++= Set(0 -> 0.0, 1 -> 0.0) 
-
-    for((key, value) <- messages) {
-      sumForLabel(key._2) += value
-    }
-
-    messages.keys.foreach(k => messages(k) = messages(k) / sumForLabel(k._2))
+    getVariableNodes.foreach(f => {
+      val sum = messages((f, 0)) + messages((f, 1))
+      messages((f, 0)) = messages((f, 0)) / sum
+      messages((f, 1)) = messages((f, 1)) / sum
+    })
   }
 
   private def update(node: VariableNode, label: Int) {
@@ -80,7 +76,8 @@ class FactorNode extends FactorMessageSource {
       res += functionPart * messagePart
     })
 
-    messages((node, label)) = res    
+    messages((node, label)) = res
+    System.out.println(MessageFormat.format("message for node {0} label {1} is {2}", node.toString, label.toString, (res).toString))
 
   }
 
