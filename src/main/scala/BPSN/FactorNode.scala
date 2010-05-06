@@ -1,9 +1,8 @@
 package BPSN
 
 import collection.mutable.{HashMap, ListBuffer}
-import java.text.MessageFormat
 
-class FactorNode extends FactorMessageSource {
+class FactorNode(labels: Set[Int]) extends FactorMessageSource {
 
   private val messages = new HashMap[Tuple2[VariableNode, Int], Double]
   private val neighbors = new ListBuffer[VariableNode]
@@ -12,13 +11,20 @@ class FactorNode extends FactorMessageSource {
 
   def link(variableNodes: VariableNode*) {
     variableNodes.foreach(v => {
-      neighbors += v 
-      messages += (v,0) -> 1.0
-      messages += (v,1) -> 1.0
-      messages += (v,2) -> 1.0
-      messages += (v,3) -> 1.0
-      messages += (v,4) -> 1.0
+      neighbors += v
+      labels.foreach(label => {
+        messages += (v,label)
+      })
     })
+    
+//    variableNodes.foreach(v => {
+//      neighbors += v
+//      messages += (v,0) -> 1.0
+//      messages += (v,1) -> 1.0
+//      messages += (v,2) -> 1.0
+//      messages += (v,3) -> 1.0
+//      messages += (v,4) -> 1.0
+//    })
   }
 
   def apply(subject: Int, neighbors: List[Int]): Double = {
@@ -39,23 +45,30 @@ class FactorNode extends FactorMessageSource {
 
   def update() {
     neighbors.foreach(v => {
-      update(v, 0)
-      update(v, 1)
-      update(v, 2)
-      update(v, 3)
-      update(v, 4)
+
+      labels.foreach(label => update(v, label))
+//      update(v, 0)
+//      update(v, 1)
+//      update(v, 2)
+//      update(v, 3)
+//      update(v, 4)
     })
     normalize
   }
 
   private def normalize() {
     getVariableNodes.foreach(f => {
-      val sum = messages((f, 0)) + messages((f, 1)) + messages((f, 2)) + messages((f, 3)) + messages((f, 4))
-      messages((f, 0)) = messages((f, 0)) / sum
-      messages((f, 1)) = messages((f, 1)) / sum
-      messages((f, 2)) = messages((f, 2)) / sum
-      messages((f, 3)) = messages((f, 3)) / sum
-      messages((f, 4)) = messages((f, 4)) / sum
+
+      var sum: Double = 0.0
+      labels.foreach(label => sum += messages((f, label)))
+//      val sum = messages((f, 0)) + messages((f, 1)) + messages((f, 2)) + messages((f, 3)) + messages((f, 4))
+
+
+        messages((f, 0)) = messages((f, 0)) / sum
+        messages((f, 1)) = messages((f, 1)) / sum
+        messages((f, 2)) = messages((f, 2)) / sum
+        messages((f, 3)) = messages((f, 3)) / sum
+        messages((f, 4)) = messages((f, 4)) / sum
     })
   }
 

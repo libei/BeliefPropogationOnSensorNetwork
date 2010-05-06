@@ -7,30 +7,56 @@ class FactorGraphSpec extends SpecBase {
 
     val factorGraph = FactorGraph.construct((factorNodes, variableNodes, observableFactorNodes) => {
       val f1 = new FactorNode
+      val f2 = new FactorNode
+      val f3 = new FactorNode
+
       val v1 = new VariableNode
       val v2 = new VariableNode
       val v3 = new VariableNode
       val v4 = new VariableNode
-      val o1 = new ObservableFactorNode(0, 0.6, v1)
-      val o2 = new ObservableFactorNode(1, 0.6, v2)
-      val o3 = new ObservableFactorNode(0, 0.6, v3)
-      val o4 = new ObservableFactorNode(2, 0.6, v4)
+      val v5 = new VariableNode
+      val v6 = new VariableNode
+      val v7 = new VariableNode
+      val v8 = new VariableNode
+
+      val o1 = new ObservableFactorNode(2, 0.9, v1)
+      val o2 = new ObservableFactorNode(2, 0.9, v2)
+      val o3 = new ObservableFactorNode(2, 0.9, v3)
+      val o4 = new ObservableFactorNode(2, 0.9, v4)
+      val o5 = new ObservableFactorNode(2, 0.9, v5)
+      val o6 = new ObservableFactorNode(2, 0.9, v6)
+      val o7 = new ObservableFactorNode(4, 0.9, v7)
+      val o8 = new ObservableFactorNode(2, 0.9, v8)
 
       v1.name = "v1"
       v2.name = "v2"
       v3.name = "v3"
       v4.name = "v4"
-
+      v5.name = "v5"
+      v6.name = "v6"
+      v7.name = "v7"
+      v8.name = "v8"
 
       f1 link (v1, v2, v3, v4)
+      f2 link (v3, v4, v5, v6)
+      f3 link (v5, v6, v7, v8)
+
       v1 link (f1, o1)
       v2 link (f1, o2)
-      v3 link (f1, o3)
-      v4 link (f1, o4)
+      v3 link (f1, f2, o3)
+      v4 link (f1, f2, o4)
+      v5 link (f2, f3, o5)
+      v6 link (f2, f3, o6)
+      v7 link (f3, o7)
+      v8 link (f3, o8)      
 
       factorNodes += f1
-      variableNodes ++= Set(v1, v2, v3, v4)
-      observableFactorNodes ++= Set(o1, o2, o3, o4)
+      factorNodes += f2
+      factorNodes += f3
+
+      variableNodes ++= Set(v1, v2, v3, v4, v5, v6, v7, v8)
+
+      observableFactorNodes ++= Set(o1, o2, o3, o4, o5, o6, o7, o8)
       
     })
 
