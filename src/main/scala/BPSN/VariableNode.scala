@@ -1,9 +1,8 @@
 package BPSN
 
 import collection.mutable.{ListBuffer, HashMap}
-import java.text.MessageFormat
 
-class VariableNode {
+class VariableNode(labels: Set[Int]) {
 
   var name = ""
 
@@ -15,18 +14,21 @@ class VariableNode {
   def link(factorNode: FactorMessageSource*) {
     factorNode.foreach(v => {
       neighbors += v
-      messages += (v, 0) -> 1.0
-      messages += (v, 1) -> 1.0
-      messages += (v, 2) -> 1.0
-      messages += (v, 3) -> 1.0
-      messages += (v, 4) -> 1.0
+
+      labels.foreach(l => {
+        messages += (v, l) -> 1.0
+      })
     })
   }
 
   def getMessageFor(factorNode: FactorMessageSource, value: Int): Double = messages((factorNode, value))
 
   
-  def getBelief(label: Int): Double = _getBelief(label) / (_getBelief(0) + _getBelief(1) + _getBelief(2) + _getBelief(3) + _getBelief(4))
+  def getBelief(label: Int): Double = {
+    var totalBelief = 0.0
+    labels.foreach(l => totalBelief += _getBelief(l) )
+    _getBelief(label) / totalBelief
+  }
 
 
   private def _getBelief(label: Int): Double = {
@@ -36,23 +38,19 @@ class VariableNode {
   }
 
   def update() {
-    updateForLabel(0)
-    updateForLabel(1)
-    updateForLabel(2)
-    updateForLabel(3)
-    updateForLabel(4)
 
+    labels.foreach(l => {
+      updateForLabel(l)
+    })
     normalize
   }
 
   private def normalize() {
     getFactorNodes.foreach(f => {
-      val sum = messages((f, 0)) + messages((f, 1)) + messages((f, 2)) + messages((f, 3)) + messages((f, 4))
-      messages((f, 0)) = messages((f, 0)) / sum
-      messages((f, 1)) = messages((f, 1)) / sum
-      messages((f, 2)) = messages((f, 2)) / sum
-      messages((f, 3)) = messages((f, 3)) / sum
-      messages((f, 4)) = messages((f, 4)) / sum
+      var sum = 0.0
+      labels.foreach(l => sum += messages((f, l)))
+
+      labels.foreach(l => messages((f, l)) = messages((f, l)) / sum)
     })
   }
 

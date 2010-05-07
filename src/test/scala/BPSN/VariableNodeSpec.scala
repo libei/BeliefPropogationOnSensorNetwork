@@ -4,10 +4,12 @@ class VariableNodeSpec extends SpecBase {
 
   it should "connect to multiple factor nodes" in {
 
-    val f1 = new FactorNode
-    val f2 = new FactorNode
-    val f3 = new FactorNode
-    val v = new VariableNode
+    val labels = Set(0, 1)
+
+    val f1 = new FactorNode(labels)
+    val f2 = new FactorNode(labels)
+    val f3 = new FactorNode(labels)
+    val v = new VariableNode(labels)
     v link(f1, f2, f3)
 
     v.getFactorNodes.length should equal(3)
@@ -16,7 +18,7 @@ class VariableNodeSpec extends SpecBase {
 
   it should "update messages for factor nodes" in {
 
-    val v = new VariableNode
+    val v = new VariableNode(Set(0, 1))
 
     val f1 = new FakeFactorNode
     val f2 = new FakeFactorNode
@@ -45,12 +47,13 @@ class VariableNodeSpec extends SpecBase {
   }
 
   it should "get belief for every label" in {
+    val labels = Set(0, 1)
 
-    val v = new VariableNode
+    val v = new VariableNode(labels)
 
-    val f1 = new FactorNode
+    val f1 = new FactorNode(labels)
     f1 link v
-    val f2 = new FactorNode
+    val f2 = new FactorNode(labels)
     f2 link v
 
     v link(f1, f2)

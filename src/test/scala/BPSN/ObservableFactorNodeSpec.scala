@@ -3,7 +3,7 @@ package BPSN
 class ObservableFactorNodeSpec extends SpecBase {
 
   it should "" in {
-    val v = new VariableNode
+    val v = new VariableNode(Set(0, 1))
     val node = new ObservableFactorNode(0, 0.7, v)
     
     node.update

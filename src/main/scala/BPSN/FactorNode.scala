@@ -13,32 +13,18 @@ class FactorNode(labels: Set[Int]) extends FactorMessageSource {
     variableNodes.foreach(v => {
       neighbors += v
       labels.foreach(label => {
-        messages += (v,label)
+        messages += (v,label) -> 1.0
       })
     })
-    
-//    variableNodes.foreach(v => {
-//      neighbors += v
-//      messages += (v,0) -> 1.0
-//      messages += (v,1) -> 1.0
-//      messages += (v,2) -> 1.0
-//      messages += (v,3) -> 1.0
-//      messages += (v,4) -> 1.0
-//    })
   }
 
   def apply(subject: Int, neighbors: List[Int]): Double = {
-
-
-
     var res = 1.0 // so that there will never be a DividbyZero exception when 1 / res
 
     neighbors.foreach(n => {
       res += Math.abs(subject - n)
     })
-
     res = Math.pow(res, 2)
-    
 //    System.out.println(MessageFormat.format("apply({0}, {1}) == {2}", subject.toString, neighbors.toString, (1 / res).toString))
     1 / res
   }
@@ -47,28 +33,16 @@ class FactorNode(labels: Set[Int]) extends FactorMessageSource {
     neighbors.foreach(v => {
 
       labels.foreach(label => update(v, label))
-//      update(v, 0)
-//      update(v, 1)
-//      update(v, 2)
-//      update(v, 3)
-//      update(v, 4)
     })
     normalize
   }
 
   private def normalize() {
     getVariableNodes.foreach(f => {
-
       var sum: Double = 0.0
       labels.foreach(label => sum += messages((f, label)))
 //      val sum = messages((f, 0)) + messages((f, 1)) + messages((f, 2)) + messages((f, 3)) + messages((f, 4))
-
-
-        messages((f, 0)) = messages((f, 0)) / sum
-        messages((f, 1)) = messages((f, 1)) / sum
-        messages((f, 2)) = messages((f, 2)) / sum
-        messages((f, 3)) = messages((f, 3)) / sum
-        messages((f, 4)) = messages((f, 4)) / sum
+      labels.foreach(l => messages((f, l)) = messages((f, l)) / sum )
     })
   }
 
@@ -80,7 +54,7 @@ class FactorNode(labels: Set[Int]) extends FactorMessageSource {
 
     val neightborsExceptTheOneToUpdate: List[VariableNode] = neighbors.toList.filter(n => n != node)
 
-    val parms: List[List[Int]] = permutation.generate(neightborsExceptTheOneToUpdate.length, Set(0, 1, 2, 3, 4))
+    val parms: List[List[Int]] = permutation.generate(neightborsExceptTheOneToUpdate.length, labels)
 
     parms.foreach(p => {
 

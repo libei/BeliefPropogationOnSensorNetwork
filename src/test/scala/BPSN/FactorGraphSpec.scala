@@ -6,18 +6,21 @@ class FactorGraphSpec extends SpecBase {
   it should "construct a factor graph" in {
 
     val factorGraph = FactorGraph.construct((factorNodes, variableNodes, observableFactorNodes) => {
-      val f1 = new FactorNode
-      val f2 = new FactorNode
-      val f3 = new FactorNode
 
-      val v1 = new VariableNode
-      val v2 = new VariableNode
-      val v3 = new VariableNode
-      val v4 = new VariableNode
-      val v5 = new VariableNode
-      val v6 = new VariableNode
-      val v7 = new VariableNode
-      val v8 = new VariableNode
+      val labels = Set(0, 1,2,3,4)
+
+      val f1 = new FactorNode(labels)
+      val f2 = new FactorNode(labels)
+      val f3 = new FactorNode(labels)
+
+      val v1 = new VariableNode(labels)
+      val v2 = new VariableNode(labels)
+      val v3 = new VariableNode(labels)
+      val v4 = new VariableNode(labels)
+      val v5 = new VariableNode(labels)
+      val v6 = new VariableNode(labels)
+      val v7 = new VariableNode(labels)
+      val v8 = new VariableNode(labels)
 
       val o1 = new ObservableFactorNode(2, 0.9, v1)
       val o2 = new ObservableFactorNode(2, 0.9, v2)
