@@ -41,7 +41,6 @@ class FactorNode(labels: Set[Int]) extends FactorMessageSource {
     getVariableNodes.foreach(f => {
       var sum: Double = 0.0
       labels.foreach(label => sum += messages((f, label)))
-//      val sum = messages((f, 0)) + messages((f, 1)) + messages((f, 2)) + messages((f, 3)) + messages((f, 4))
       labels.foreach(l => messages((f, l)) = messages((f, l)) / sum )
     })
   }
@@ -59,7 +58,6 @@ class FactorNode(labels: Set[Int]) extends FactorMessageSource {
     parms.foreach(p => {
 
       //p: List[Int] 
-
       val functionPart = apply(label, p)
 
       var messagePart = 1.0

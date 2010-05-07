@@ -22,14 +22,14 @@ class FactorGraphSpec extends SpecBase {
       val v7 = new VariableNode(labels)
       val v8 = new VariableNode(labels)
 
-      val o1 = new ObservableFactorNode(2, 0.9, v1)
-      val o2 = new ObservableFactorNode(2, 0.9, v2)
-      val o3 = new ObservableFactorNode(2, 0.9, v3)
-      val o4 = new ObservableFactorNode(2, 0.9, v4)
-      val o5 = new ObservableFactorNode(2, 0.9, v5)
-      val o6 = new ObservableFactorNode(2, 0.9, v6)
-      val o7 = new ObservableFactorNode(4, 0.9, v7)
-      val o8 = new ObservableFactorNode(2, 0.9, v8)
+      val o1 = new ObservableFactorNode(2, 0.9, v1, labels)
+      val o2 = new ObservableFactorNode(2, 0.9, v2, labels)
+      val o3 = new ObservableFactorNode(2, 0.9, v3, labels)
+      val o4 = new ObservableFactorNode(2, 0.9, v4, labels)
+      val o5 = new ObservableFactorNode(2, 0.9, v5, labels)
+      val o6 = new ObservableFactorNode(2, 0.9, v6, labels)
+      val o7 = new ObservableFactorNode(4, 0.9, v7, labels)
+      val o8 = new ObservableFactorNode(2, 0.9, v8, labels)
 
       v1.name = "v1"
       v2.name = "v2"

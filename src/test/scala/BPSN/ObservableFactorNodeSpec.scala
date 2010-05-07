@@ -1,10 +1,13 @@
 package BPSN
 
+import collection.immutable.Set
+
 class ObservableFactorNodeSpec extends SpecBase {
 
   it should "" in {
-    val v = new VariableNode(Set(0, 1))
-    val node = new ObservableFactorNode(0, 0.7, v)
+    val labels = Set(0, 1)
+    val v = new VariableNode(labels)
+    val node = new ObservableFactorNode(0, 0.7, v, labels)
     
     node.update
 
